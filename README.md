@@ -2,6 +2,9 @@
 
 This is yew markdown demo.
 
+## github pages
+https://akifumisato.github.io/yew-markdown-demo/
+
 ## 🚴 Usage
 ### node
 12.13.0
