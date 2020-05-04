@@ -1,4 +1,4 @@
-name: Deploy to Netlify
+name: Deploy to Github pages
 
 on:
   push:
@@ -27,11 +27,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Publish
-        uses: netlify/actions/cli@master
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          args: deploy --dir=dist --prod
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
   
