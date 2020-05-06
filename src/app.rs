@@ -1,5 +1,8 @@
 use log::*;
 use serde_derive::{Deserialize, Serialize};
+use pulldown_cmark::{html::push_html, Options, Parser};
+use stdweb::web::Node;
+use yew::virtual_dom::VNode;
 use yew::format::Json;
 use yew::prelude::*;
 use yew::services::storage::{Area, StorageService};
@@ -14,12 +17,11 @@ pub struct App {
 
 #[derive(Serialize, Deserialize)]
 pub struct State {
-    value: String,
+    text: String,
 }
 
 pub enum Msg {
     Update(String),
-    Nope,
 }
 
 impl Component for App {
@@ -28,7 +30,7 @@ impl Component for App {
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         let storage = StorageService::new(Area::Local).unwrap();
-        let value = {
+        let text = {
             if let Json(Ok(restored_entries)) = storage.restore(KEY) {
                 restored_entries
             } else {
@@ -36,7 +38,7 @@ impl Component for App {
             }
         };
         let state = State {
-            value,
+            text,
         };
         App {
             link,
@@ -53,16 +55,25 @@ impl Component for App {
         match msg {
             Msg::Update(val) => {
                 println!("Input: {}", val);
-                self.state.value = val;
+                self.state.text = val;
             }
-            Msg::Nope => {}
         }
-        self.storage.store(KEY, Json(&self.state.value));
+        self.storage.store(KEY, Json(&self.state.text));
         true
     }
 
     fn view(&self) -> Html {
         info!("rendered!");
+
+        let preview = parse_text(&self.state.text);
+        // let preview = if self.state.text.is_empty() {
+        //     None
+        // } else {
+        //     let parse_html = parse_text(&self.state.text);
+        //     let node = Node::from_html(&parse_html).unwrap();
+        //     Some(VNode::VRef(node))
+        // };
+
         html! {
             <>
                 <header id="header">
@@ -74,15 +85,29 @@ impl Component for App {
                         <textarea
                           class="markdown"
                           oninput=self.link.callback(|e: InputData| Msg::Update(e.value))
-                          value=self.state.value
+                          value=self.state.text
                         />
                     </div>
                     <div class="l-column">
                         <h2 class="section-title">{"Preview"}</h2>
-                        <div class="preview">{&self.state.value}</div>
+                        <div class="preview">{preview}</div>
                     </div>
                 </article>
             </>
         }
     }
+}
+
+fn parse_text(value: &str) -> String {
+    let mut options = Options::empty();
+    options.insert(Options::ENABLE_TABLES);
+    options.insert(Options::ENABLE_FOOTNOTES);
+    options.insert(Options::ENABLE_STRIKETHROUGH);
+    options.insert(Options::ENABLE_TASKLISTS);
+
+    let parser = Parser::new_ext(&value, options);
+    let mut parsed_text = String::new();
+    push_html(&mut parsed_text, parser);
+
+    parsed_text
 }

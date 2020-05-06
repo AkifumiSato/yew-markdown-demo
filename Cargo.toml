@@ -16,7 +16,9 @@ serde_derive = "1"
 wasm-bindgen = "0.2.58"
 wasm-logger = "0.2"
 wee_alloc = { version = "0.4.4", optional = true }
-yew = "0.15"
+yew = { version = "0.15", package = "yew-stdweb" }
+pulldown-cmark = "0.6.1"
+stdweb = "0.4.20"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
