@@ -65,14 +65,10 @@ impl Component for App {
     fn view(&self) -> Html {
         info!("rendered!");
 
-        let preview = parse_text(&self.state.text);
-        // let preview = if self.state.text.is_empty() {
-        //     None
-        // } else {
-        //     let parse_html = parse_text(&self.state.text);
-        //     let node = Node::from_html(&parse_html).unwrap();
-        //     Some(VNode::VRef(node))
-        // };
+        let parse_html = parse_text(&self.state.text);
+        let html_text = format!("<div>{}</div>", &parse_html);
+        let node = Node::from_html(&html_text).unwrap();
+        let preview = VNode::VRef(node);
 
         html! {
             <>
