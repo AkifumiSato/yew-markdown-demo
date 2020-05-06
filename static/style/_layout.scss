@@ -1,0 +1,31 @@
+$headerHeight: 70px;
+
+#header {
+  background: #11998e; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #38ef7d, #11998e); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  height: #{$headerHeight};
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 7;
+}
+
+#article {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: #{$headerHeight};
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.l-column {
+  position: relative;
+}

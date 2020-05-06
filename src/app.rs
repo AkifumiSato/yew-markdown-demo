@@ -58,15 +58,19 @@ impl Component for App {
         info!("rendered!");
         html! {
             <>
-                <header>
-                    <p>
-                        {"Yew Markdown Preview: "}
-                    </p>
+                <header id="header">
+                    {"Yew Markdown Memo"}
                 </header>
-                <div class={"container"}>
-                    <textarea oninput=self.link.callback(|e: InputData| Msg::Update(e.value)) />
-                    <div>{&self.state.value}</div>
-                </div>
+                <article id="article">
+                    <div class="l-column">
+                        <h2 class="section-title">{"Markdown"}</h2>
+                        <textarea class="markdown" oninput=self.link.callback(|e: InputData| Msg::Update(e.value)) />
+                    </div>
+                    <div class="l-column">
+                        <h2 class="section-title">{"Preview"}</h2>
+                        <div class="preview">{&self.state.value}</div>
+                    </div>
+                </article>
             </>
         }
     }

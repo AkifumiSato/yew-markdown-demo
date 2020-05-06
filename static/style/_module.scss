@@ -1,0 +1,25 @@
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.section-title {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #aaa;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.markdown {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.preview {
+  font-size: 20px;
+  line-height: 1.5;
+  padding: 50px 20px 20px;
+}
