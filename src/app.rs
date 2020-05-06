@@ -66,7 +66,7 @@ impl Component for App {
         info!("rendered!");
 
         let parse_html = parse_text(&self.state.text);
-        let html_text = format!("<div>{}</div>", &parse_html);
+        let html_text = format!("<div class='preview'>{}</div>", &parse_html);
         let node = Node::from_html(&html_text).unwrap();
         let preview = VNode::VRef(node);
 
@@ -86,7 +86,7 @@ impl Component for App {
                     </div>
                     <div class="l-column">
                         <h2 class="section-title">{"Preview"}</h2>
-                        <div class="preview">{preview}</div>
+                        {preview}
                     </div>
                 </article>
             </>
