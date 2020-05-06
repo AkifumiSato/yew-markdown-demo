@@ -28,8 +28,15 @@ impl Component for App {
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         let storage = StorageService::new(Area::Local).unwrap();
+        let value = {
+            if let Json(Ok(restored_entries)) = storage.restore(KEY) {
+                restored_entries
+            } else {
+                "".to_string()
+            }
+        };
         let state = State {
-            value: "".to_string(),
+            value,
         };
         App {
             link,
@@ -64,7 +71,11 @@ impl Component for App {
                 <article id="article">
                     <div class="l-column">
                         <h2 class="section-title">{"Markdown"}</h2>
-                        <textarea class="markdown" oninput=self.link.callback(|e: InputData| Msg::Update(e.value)) />
+                        <textarea
+                          class="markdown"
+                          oninput=self.link.callback(|e: InputData| Msg::Update(e.value))
+                          value=self.state.value
+                        />
                     </div>
                     <div class="l-column">
                         <h2 class="section-title">{"Preview"}</h2>
