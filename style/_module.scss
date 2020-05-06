@@ -1,0 +1,66 @@
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.section-title {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #aaa;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.markdown {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.preview {
+  font-size: 20px;
+  line-height: 1.5;
+  padding: 50px 20px 20px;
+
+  > *:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  > h1 {
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+  > h2 {
+    font-size: 30px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+  }
+
+  > h3,
+  > h4 {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  > ul,
+  > ol {
+    margin-left: 30px;
+  }
+
+  > ul > li {
+    list-style: disc;
+  }
+
+  > ol > li {
+    list-style: decimal;
+  }
+
+  > blockquote {
+    background-color: #f5f5f5;
+    border-left: 2px solid #ccc;
+    padding: 10px;
+    color: #888;
+  }
+}
